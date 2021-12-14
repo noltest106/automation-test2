@@ -22,6 +22,14 @@ dropdown = driver.find_element_by_id("s")
 select = Select(dropdown)
 select.select_by_value("2")
 
+
+driver.find_element_by_xpath("//*[@id=\"air\"]").click()
+driver.find_element_by_xpath("//*[@id=\"sexp\"]").click()
+
+#有料特急を外す
+driver.find_element_by_xpath("//*[@id=\"mdRouteSearch\"]/div[2]/form/div/dl[2]/dd/ul[1]/li[3]").click()
+
 #検索実行
-driver.find_element_by_id("searchModuleSubmit").click()
+#driver.find_element_by_id("searchModuleSubmit").click()
+driver.find_element_by_xpath("//input[@id='searchModuleSubmit']").click()
 
