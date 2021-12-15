@@ -2,6 +2,7 @@ from selenium import webdriver
 import selenium
 from selenium.webdriver.support.select import Select
 from selenium.webdriver import Chrome
+from selenium.webdriver.common.by import By
 #from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
@@ -23,11 +24,22 @@ select = Select(dropdown)
 select.select_by_value("2")
 
 
-driver.find_element_by_xpath("//*[@id=\"air\"]").click()
-driver.find_element_by_xpath("//*[@id=\"sexp\"]").click()
+# driver.find_element_by_xpath("//*[@id=\"air\"]").click()
+# driver.find_element_by_xpath("//*[@id=\"sexp\"]").click()
 
 #有料特急を外す
-driver.find_element_by_xpath("//*[@id=\"mdRouteSearch\"]/div[2]/form/div/dl[2]/dd/ul[1]/li[3]").click()
+#driver.find_element_by_xpath("//*[@id=\"mdRouteSearch\"]/div[2]/form/div/dl[2]/dd/ul[1]/li[3]").click()
+
+#チェックボックスをすべて外す
+block = driver.find_element(By.XPATH,"//dl[@class='optTransport']/dd/ul")
+checkboxes = block.find_elements(By.NAME, "type")
+
+print(len(checkboxes))
+
+for checkbox in checkboxes:
+    print("Before clicking : ", checkbox.is_selected())
+    checkbox.click()
+    print("After clicking : ", checkbox.is_selected())
 
 #検索実行
 #driver.find_element_by_id("searchModuleSubmit").click()
