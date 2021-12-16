@@ -1,11 +1,23 @@
 from selenium import webdriver
 import selenium
+import os
 from selenium.webdriver.support.select import Select
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+#from selenium.webdriver.chrome.options import Options
+chrome_options=webdriver.ChromeOptions()
+#chrome_options.add_argument('--headless')
 #from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+import logging
+import datetime
 
+
+# logger = logging.getLogger('LoggingTest')
+# logger.setLevel(40)
+# dt = datetime.datetime.now()
+# fh = logging.FileHandler('testresult.log')
+# logger.addHandler(fh)
 
 driver = webdriver.Chrome(executable_path="C:\\Users\\toshi\\AppData\\Local\\Programs\\Python\\Python39\\Lib\\site-packages\\chromedriver_binary\\chromedriver.exe")
 driver.get("https://yahoo.co.jp")
@@ -23,7 +35,6 @@ dropdown = driver.find_element_by_id("s")
 select = Select(dropdown)
 select.select_by_value("2")
 
-
 # driver.find_element_by_xpath("//*[@id=\"air\"]").click()
 # driver.find_element_by_xpath("//*[@id=\"sexp\"]").click()
 
@@ -36,12 +47,18 @@ checkboxes = block.find_elements(By.NAME, "type")
 
 print(len(checkboxes))
 
+dt = datetime.datetime.now()
+foldername = '../img' + dt.strftime('%Y%m%d_%H%M%S')
+
+os.mkdir(foldername)
+driver.save_screenshot(foldername + '/before.png')
 for checkbox in checkboxes:
     print("Before clicking : ", checkbox.is_selected())
     checkbox.click()
     print("After clicking : ", checkbox.is_selected())
-
+driver.save_screenshot(foldername + '/after.png')
+#driver.get_screenshot_as_file('../img/after.png')
 #検索実行
-#driver.find_element_by_id("searchModuleSubmit").click()
 driver.find_element_by_xpath("//input[@id='searchModuleSubmit']").click()
 
+driver.quit()
