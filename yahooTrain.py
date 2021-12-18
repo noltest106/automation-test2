@@ -26,6 +26,11 @@ driver.get("https://yahoo.co.jp")
 driver.find_element_by_xpath("/html/body/div/div/main/div[1]/nav/div/div/ul/li[25]/div/a/p/span[1]/span").click()
 driver.implicitly_wait(5)
 
+#assertion
+title = driver.title
+assert "Yahoo! JAPAN" in title
+print("title is ", title) 
+
 #検索条件入力
 driver.find_element_by_xpath("/html/body/div/body/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/form/dl[1]/dd/input").send_keys("新宿駅")
 driver.find_element_by_xpath("/html/body/div/body/div/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/form/dl[2]/dd/input").send_keys("東京駅")
